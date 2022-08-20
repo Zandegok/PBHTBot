@@ -8,7 +8,7 @@ def handle_text(message):
     command = message.text.split()
     match command:
         case '/echo', *t:
-            bot.send_message(message.chat.id, ' '.join(*t))
+            bot.send_message(message.chat.id, ' '.join(t))
 
 
 bot.polling(none_stop=True, interval=0)
