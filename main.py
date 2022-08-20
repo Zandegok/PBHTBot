@@ -3,6 +3,8 @@ import telebot
 print('Я родился')
 bot = telebot.TeleBot('5679403254:AAEijeWHM9ub9MxaTRuhFrL5iIFj4Tjlp_I')
 
+bot.send_message('@nullnullnullnullnullnullnullnu', 'Я проснулся')
+
 
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
