@@ -1,2 +1,10 @@
 pyTelegramBotAPI
+FreeType
+libpng
+NumPy
+setuptools
+cycler 
+dateutil
+kiwisolver 
+pyparsing
 mathplotlib
