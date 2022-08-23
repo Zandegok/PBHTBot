@@ -3,43 +3,28 @@ import threading
 import datetime
 import time
 import os
+
+from telebot.types import ReplyKeyboardMarkup,KeyboardButton
+
+import help
+
+import mathplot
+
 print('Я родился')
 bot = telebot.TeleBot(os.environ['TOKEN'])
-# timeManagers = eval(open('docs/time managers').read())
-
-
-# def checkTime():
-#     b = False
-#     while True:
-#         if datetime.datetime.now().second.real == 0 and not b:
-#             for chatid in timeManagers:
-#                 bot.send_message(chatid, 'Начало минуты:' + str(datetime.datetime.now()))
-#             b = True
-#         if datetime.datetime.now().second.real == 30 and b:
-#             for chatid in timeManagers:
-#                 bot.send_message(chatid, 'Середина минуты:' + str(datetime.datetime.now()))
-#             b = False
-#
-#
-# threading.Thread(target=checkTime, args=(), name='Timer').start()
-
-
+mainmarkup = ReplyKeyboardMarkup(resize_keyboard=True)
+mainmarkup.add(KeyboardButton("/help"),KeyboardButton("/echo"),KeyboardButton("/plot"))
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     command = message.text.split()
     print(message.chat)
     match command:
-        # case '/start'|'/help':
+        case command,:  # Любая команда без аргументов автоматически вызывает справку, для релизации другой логики пишите её выше этой строки
+            bot.send_message(message.chat.id, help.gethelp(command),reply_markup=mainmarkup)
         case '/echo', *t:
-            bot.send_message(message.chat.id, ' '.join(t))
-        # case '/timemanage', 'on':
-        #     timeManagers.append(message.chat.id)
-        #     open('docs/time managers', 'w').write(str(timeManagers))
-        #     bot.send_message(message.chat.id,'Менеджмент времени подключён')
-        # case '/timemanage', 'off':
-        #     timeManagers.remove(message.chat.id)
-        #     open('docs/time managers', 'w').write(str(timeManagers))
-        #     bot.send_message(message.chat.id, 'Менеджмент времени отключён')
+            bot.send_message(message.chat.id, ' '.join(t),reply_markup=mainmarkup)
+        case '/plot', *t:
+            bot.send_photo(message.chat.id, mathplot.makeplot(*t),reply_markup=mainmarkup)
 
 
 bot.polling(none_stop=True, interval=0)
