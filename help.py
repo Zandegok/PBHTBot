@@ -1,5 +1,7 @@
+from telebot.types import *
+
 helpDict = {
-    '/help': '''
+    '/help': ('''
 Синтаксис: 
     <arg> - обязательный аргумент с названием arg
     <arg>? - необязательный аргумент с названием arg
@@ -12,12 +14,14 @@ helpDict = {
 /help - Возвращает общую справку
 /echo <text>* - Повторяет введённый text
 /plot <args>* - Строит график по указанным параметрам. /plot для подробностей
-''',
-    '/echo': 'Повторяет любой введённый текст. Например "/echo Случайный текст" вернёт "Случайный текст" ',
-    '/plot': '''Строит график или схему по указанным параметрам
-/plot points xs[num] ys[num] - Строит линию соединяющую указанные точки, например /plot points [1,5,7,1] [6,3,8,6] построит треугольник'''
-}
+''', ReplyKeyboardMarkup(resize_keyboard=True).add(KeyboardButton("/help"),KeyboardButton("/echo"),KeyboardButton("/plot"))),
 
+'/echo': ('Повторяет любой введённый текст. Например "/echo Случайный текст" вернёт "Случайный текст" ',
+          None),
+'/plot': ('''Строит график или схему по указанным параметрам
+/plot points xs[num] ys[num] - Строит линию соединяющую указанные точки, например /plot points [1,5,7,1] [6,3,8,6] построит треугольник''',
+          ReplyKeyboardMarkup(resize_keyboard=True).add(KeyboardButton('/plot points')))
+}
 
 def gethelp(command):
     if command in helpDict: return helpDict[command]
