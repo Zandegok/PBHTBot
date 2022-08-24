@@ -22,6 +22,6 @@ def makeplot(*args):
 
 def makeplotByPoints(xs, ys):
     fig, ax = plt.subplots()
-    ax.plot(x, y)
+    ax.plot(xs, ys)
     plt.savefig('d.png')
     return open('d.png', 'rb')
