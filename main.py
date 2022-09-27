@@ -14,7 +14,7 @@ import help
 
 import mathplot
 
-print('Я родился')
+print('Я родился!')
 bot = telebot.TeleBot(os.environ['TOKEN'])
 
 dataParser = None
